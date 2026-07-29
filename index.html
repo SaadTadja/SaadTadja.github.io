@@ -173,7 +173,22 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1.04; letter-spacing: -.015em; font-weight: 400;
   margin: 0 0 1.4rem; max-width: 24ch;
 }
-.hero h1 em { font-style: normal; color: var(--accent); }
+.hero h1 em,
+.hero h1 .accent { font-style: normal; color: var(--accent); }
+
+/* typing caret */
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: .88em;
+  margin-left: .05em;
+  vertical-align: -.08em;
+  background: var(--accent);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+.caret.is-done { animation: none; opacity: 0; transition: opacity .5s ease; }
+@media (prefers-reduced-motion: reduce) { .caret { display: none; } }
 .hero-intro { font-size: clamp(1rem, 1.7vw, 1.14rem); color: var(--text-dim); max-width: 62ch; margin: 0 0 1.5rem; }
 .pill {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -365,7 +380,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   <!-- ============ hero ============ -->
   <div class="wrap hero">
     <p class="eyebrow">AI/ML Engineer · LLM Agents · End-to-End Solutions</p>
-    <h1>I build AI systems from the business need to <em>production</em>.</h1>
+    <h1 id="hero-title" aria-label="I build AI systems from the business need to production."><span class="type-target">I build AI systems from the business need to <em>production</em>.</span><span class="caret" aria-hidden="true"></span></h1>
     <p class="hero-intro">
       Final-year engineering student at ESITH Casablanca. I design and ship LLM agents, machine-learning
       pipelines and the full-stack systems that run them — currently building an end-to-end AI agent
@@ -737,6 +752,62 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 </footer>
 
 <script>
+/* Hero typing effect.
+   The full headline is in the HTML, so it renders with JS disabled and screen
+   readers use the h1's aria-label. This only replays it visually. */
+(function () {
+  var h1 = document.getElementById('hero-title');
+  if (!h1) return;
+  var target = h1.querySelector('.type-target');
+  var caret  = h1.querySelector('.caret');
+  if (!target) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (caret) caret.parentNode.removeChild(caret);
+    return;
+  }
+
+  /* Snapshot the headline as segments so the accent <em> survives retyping. */
+  var segments = [];
+  Array.prototype.forEach.call(target.childNodes, function (node) {
+    var text = node.nodeType === 3 ? node.nodeValue : node.textContent;
+    if (text) segments.push({ text: text, accent: node.nodeType !== 3 });
+  });
+
+  function play() {
+    /* Lock in the rendered height first, so lines appearing cause no reflow. */
+    h1.style.minHeight = h1.offsetHeight + 'px';
+    target.textContent = '';
+
+    var si = 0, ci = 0, span = null;
+
+    (function step() {
+      if (si >= segments.length) {
+        if (caret) caret.className = 'caret is-done';
+        return;
+      }
+      var seg = segments[si];
+      if (ci === 0) {
+        span = document.createElement('span');
+        if (seg.accent) span.className = 'accent';
+        target.appendChild(span);
+      }
+      span.textContent += seg.text.charAt(ci);
+      ci++;
+      if (ci >= seg.text.length) { si++; ci = 0; }
+      setTimeout(step, 30 + Math.random() * 36);
+    })();
+  }
+
+  /* Wait for the serif to load, otherwise the reserved height is measured
+     against fallback metrics and the block still shifts. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(play).catch(play);
+  } else {
+    window.addEventListener('load', play);
+  }
+})();
+
 (function () {
   var root = document.documentElement;
 
