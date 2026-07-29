@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Saad Tadjaoui — Industrial Engineering, Machine Learning, MLOps</title>
-<meta name="description" content="Industrial Engineering student at ESITH Casablanca. I build production machine learning pipelines and automate business operations end to end.">
+<title>Saad Tadjaoui — AI/ML Engineer</title>
+<meta name="description" content="Final-year engineering student building AI/ML solutions end to end — LLM agents, machine learning pipelines, and the full-stack systems that run them. Available for an end-of-studies internship (PFE) from February 2027.">
 <meta name="author" content="Saad Tadjaoui">
 <link rel="canonical" href="https://saadtadja.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://saadtadja.github.io/">
-<meta property="og:title" content="Saad Tadjaoui — Industrial Engineering, Machine Learning, MLOps">
-<meta property="og:description" content="I build production machine learning pipelines and automate business operations end to end.">
+<meta property="og:title" content="Saad Tadjaoui — AI/ML Engineer">
+<meta property="og:description" content="LLM agents, machine learning pipelines, and the full-stack systems that run them. Available for a PFE internship from February 2027.">
 <meta name="theme-color" content="#0f1115">
 
 <script>
@@ -105,7 +105,7 @@ img { max-width: 100%; height: auto; display: block; }
 .nav { display: flex; align-items: center; gap: .25rem; }
 .nav a {
   font-size: .875rem; color: var(--text-dim); text-decoration: none;
-  padding: .4rem .6rem; border-radius: 6px; transition: color .15s, background .15s;
+  padding: .4rem .55rem; border-radius: 6px; transition: color .15s, background .15s;
 }
 .nav a:hover { color: var(--text); background: var(--bg-inset); }
 
@@ -120,7 +120,7 @@ img { max-width: 100%; height: auto; display: block; }
 [data-theme="light"] .only-dark { display: none; }
 
 .nav-toggle { display: none; }
-@media (max-width: 760px) {
+@media (max-width: 860px) {
   .nav {
     position: absolute; top: 60px; left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0;
@@ -133,7 +133,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ---------- hero ---------- */
-.hero { padding: clamp(3.5rem, 10vw, 7rem) 0 clamp(2.5rem, 6vw, 4rem); }
+.hero { padding: clamp(3.5rem, 10vw, 6.5rem) 0 clamp(2.5rem, 6vw, 4rem); }
 .eyebrow {
   font-family: var(--font-mono); font-size: .78rem; letter-spacing: .09em;
   text-transform: uppercase; color: var(--accent); margin: 0 0 1.1rem;
@@ -141,10 +141,18 @@ img { max-width: 100%; height: auto; display: block; }
 .hero h1 {
   font-size: clamp(2.1rem, 6.2vw, 3.9rem);
   line-height: 1.06; letter-spacing: -.03em; font-weight: 700;
-  margin: 0 0 1.4rem; max-width: 22ch;
+  margin: 0 0 1.4rem; max-width: 24ch;
 }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.hero-intro { font-size: clamp(1rem, 1.7vw, 1.14rem); color: var(--text-dim); max-width: 60ch; margin: 0 0 2rem; }
+.hero-intro { font-size: clamp(1rem, 1.7vw, 1.14rem); color: var(--text-dim); max-width: 62ch; margin: 0 0 1.5rem; }
+.pill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-mono); font-size: .78rem;
+  padding: .4rem .8rem; margin-bottom: 1.75rem;
+  border: 1px solid var(--accent); border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.pill .dotlive { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
 .btn {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -178,7 +186,7 @@ section { padding: clamp(2.75rem, 7vw, 4.5rem) 0; border-top: 1px solid var(--li
   .portrait { width: 140px; height: 140px; }
 }
 
-/* ---------- focus cards ---------- */
+/* ---------- grids & cards ---------- */
 .grid { display: grid; gap: 1rem; }
 .cols-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
 .cols-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
@@ -203,6 +211,9 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 .proj h3 { margin: 0; font-size: 1.03rem; letter-spacing: -.015em; }
 .proj-kind { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; color: var(--text-faint); white-space: nowrap; }
 .proj p { margin: 0 0 .9rem; font-size: .89rem; color: var(--text-dim); }
+.proj ul { margin: 0 0 .9rem; padding-left: 1.05rem; }
+.proj li { font-size: .875rem; color: var(--text-dim); margin-bottom: .3rem; }
+.metric { color: var(--accent); font-family: var(--font-mono); font-size: .85em; }
 .tags { display: flex; flex-wrap: wrap; gap: .35rem; }
 .tag {
   font-family: var(--font-mono); font-size: .7rem;
@@ -221,12 +232,20 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   background: var(--bg-raised); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 1.15rem;
 }
+.xp-mark {
+  width: 44px; height: 44px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-mono); font-size: .82rem; font-weight: 600;
+}
 .xp-logo { width: 44px; height: 44px; border-radius: 7px; object-fit: contain; background: #fff; padding: 4px; }
 .xp-role { margin: 0; font-size: .98rem; }
 .xp-meta { font-family: var(--font-mono); font-size: .76rem; color: var(--text-faint); margin: .15rem 0 .6rem; }
+.xp-sub { font-size: .88rem; color: var(--text); margin: 0 0 .5rem; font-weight: 500; }
 .xp-item ul { margin: 0; padding-left: 1.1rem; }
-.xp-item li { font-size: .88rem; color: var(--text-dim); margin-bottom: .25rem; }
-.xp-item p { margin: 0; font-size: .88rem; color: var(--text-dim); }
+.xp-item li { font-size: .88rem; color: var(--text-dim); margin-bottom: .3rem; }
+.xp-item > div > p:last-child { margin-bottom: 0; }
+.xp-item p { margin: 0 0 .5rem; font-size: .88rem; color: var(--text-dim); }
 
 /* ---------- timeline ---------- */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 5vw, 3.5rem); }
@@ -242,10 +261,21 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 .timeline strong { display: block; font-size: .95rem; }
 .timeline span { display: block; font-size: .86rem; color: var(--text-dim); }
 .timeline time { font-family: var(--font-mono); font-size: .76rem; color: var(--text-faint); }
+.coursework { font-size: .84rem; color: var(--text-faint); margin-top: .35rem; }
 
 .skill-row { margin-bottom: 1rem; }
 .skill-row h4 { margin: 0 0 .4rem; font-size: .82rem; font-family: var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--text-faint); font-weight: 500; }
 .skill-row p { margin: 0; font-size: .9rem; color: var(--text-dim); }
+
+/* ---------- certifications ---------- */
+.cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.cert-list li {
+  display: flex; align-items: flex-start; gap: .6rem;
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: .8rem 1rem; font-size: .89rem;
+}
+.cert-list svg { flex: none; color: var(--accent); margin-top: 3px; }
+.cert-list em { font-style: normal; display: block; color: var(--text-faint); font-family: var(--font-mono); font-size: .74rem; margin-top: .1rem; }
 
 /* ---------- contact ---------- */
 .contact-list { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
@@ -286,6 +316,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#resume">Résumé</a>
+      <a href="#credentials">Credentials</a>
       <a href="#writing">Writing</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -306,12 +337,17 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 
   <!-- ============ hero ============ -->
   <div class="wrap hero">
-    <p class="eyebrow">Industrial Engineering · Machine Learning · MLOps</p>
-    <h1>I build systems that <em>keep working</em> after the notebook closes.</h1>
+    <p class="eyebrow">AI/ML Engineer · LLM Agents · End-to-End Solutions</p>
+    <h1>I build AI systems from the business need to <em>production</em>.</h1>
     <p class="hero-intro">
-      Industrial Engineering student at ESITH Casablanca, majoring in Business &amp; Data Management.
-      I work where analysis becomes infrastructure — orchestrated retraining, model registries,
-      served predictions, and automated operations that run without supervision.
+      Final-year engineering student at ESITH Casablanca. I design and ship LLM agents, machine-learning
+      pipelines and the full-stack systems that run them — currently building an end-to-end AI agent
+      platform at EHC Groupe. Business &amp; Data Management background, so I start from the problem
+      rather than the model.
+    </p>
+    <p class="pill">
+      <span class="dotlive" aria-hidden="true"></span>
+      Available for an end-of-studies internship (PFE) from February 2027
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#projects">View projects</a>
@@ -324,22 +360,22 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   <section id="about">
     <div class="wrap">
       <p class="sec-label">01 — About</p>
-      <h2 class="sec-title">Two disciplines, one workflow</h2>
+      <h2 class="sec-title">From the real need to the running system</h2>
       <div class="about-grid">
         <img class="portrait" src="20251024_2205_image.png" alt="Portrait of Saad Tadjaoui" width="200" height="200" loading="lazy">
         <div>
           <p class="lead">
-            My degree sits between industrial engineering and data: supply chain and operations on one side,
-            machine learning and information systems on the other. A <strong>CPGE MPSI/MP</strong> background
-            came before it. That combination is why I gravitate toward MLOps rather than modelling alone — a
-            forecast is only useful once it is scheduled, monitored, and trusted by the people acting on it.
+            I build AI/ML solutions end to end — starting from the actual business need and finishing in
+            production. In practice that means LLM agents driven by careful prompting, machine-learning
+            pipelines that monitor and retrain themselves, and the APIs, data models and interfaces that
+            let real users act on the output.
           </p>
           <p class="lead">
-            In practice I build closed loops: pipelines that detect their own degradation and retrain, APIs
-            that expose predictions to the systems that need them, and automation that removes manual steps
-            from a business process end to end. I use LLMs as components rather than demos — the
-            <strong>Claude API</strong> doing document screening inside production services. I also write
-            technical guides on machine learning mathematics and applied GenAI, published on LinkedIn.
+            My degree sits between industrial engineering and data: operations and supply chain on one
+            side, machine learning, information systems and generative AI on the other, after two years
+            of <strong>CPGE MPSI/MP</strong>. That mix is why I care as much about degraded modes,
+            explainability and audit trails as about model accuracy — a prediction nobody trusts is not
+            a delivered system. I also write technical guides on machine-learning mathematics and applied GenAI.
           </p>
         </div>
       </div>
@@ -354,23 +390,23 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
       <div class="grid cols-4">
         <div class="card">
           <span class="card-num">01</span>
-          <h3>MLOps &amp; Pipelines</h3>
-          <p>Airflow orchestration, MLflow tracking and registries, drift detection, containerized deployment.</p>
+          <h3>LLM Agents &amp; GenAI</h3>
+          <p>Agents built on the Claude API, prompt engineering, RAG, and orchestration with n8n.</p>
         </div>
         <div class="card">
           <span class="card-num">02</span>
-          <h3>Applied Machine Learning</h3>
-          <p>Forecasting and anomaly detection with XGBoost and scikit-learn, feature engineering, evaluation.</p>
+          <h3>Machine Learning</h3>
+          <p>Forecasting, classification and anomaly detection with scikit-learn, XGBoost and PyTorch.</p>
         </div>
         <div class="card">
           <span class="card-num">03</span>
-          <h3>Process Automation</h3>
-          <p>REST APIs driving no-code workflows, email and document pipelines, LLM-assisted screening.</p>
+          <h3>MLOps</h3>
+          <p>MLflow tracking and registries, Airflow scheduling, drift detection, model monitoring, Docker.</p>
         </div>
         <div class="card">
           <span class="card-num">04</span>
-          <h3>Operations &amp; Strategy</h3>
-          <p>Supply chain and inventory optimization, KPI design, market analysis and strategic frameworks.</p>
+          <h3>Full-Stack Delivery</h3>
+          <p>FastAPI and Express services, Next.js/React interfaces, MongoDB and PostgreSQL, REST APIs.</p>
         </div>
       </div>
     </div>
@@ -385,17 +421,44 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 
         <div class="proj">
           <div class="proj-top">
+            <h3>AI Recruitment Agent Platform</h3>
+            <span class="proj-kind">EHC Groupe · private</span>
+          </div>
+          <p>
+            A platform that automates a complete hiring process: content generation, CV parsing, candidate
+            scoring, interview scheduling and onboarding follow-up — an LLM agent driven by prompts and the
+            Claude API, orchestrated with n8n.
+          </p>
+          <ul>
+            <li>Dual-engine design: falls back to a deterministic rules engine when the LLM API is unavailable.</li>
+            <li>Deterministic, explainable scoring, degraded mode, and a full event log.</li>
+            <li><span class="metric">38/38</span> end-to-end tests passing.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Next.js/React</span><span class="tag">Node.js/Express</span><span class="tag">Socket.IO</span>
+            <span class="tag">FastAPI</span><span class="tag">MongoDB</span><span class="tag">Claude API</span>
+            <span class="tag">n8n</span><span class="tag">Docker Compose</span><span class="tag tag-muted">Code on request</span>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-top">
             <h3>Smart Supply Forecaster</h3>
             <span class="proj-kind">MLOps</span>
           </div>
           <p>
-            Closed-loop continuous-training pipeline for retail demand forecasting. Airflow triggers scheduled
-            retraining, MLflow versions and promotes models only when they beat the incumbent on RMSE, FastAPI
-            serves predictions, and a Streamlit dashboard tracks drift. Fully containerized, with tests running in CI.
+            Closed-loop continuous-training pipeline for demand forecasting, built so that model updates are
+            automatic but never blind.
           </p>
+          <ul>
+            <li>FastAPI serving with prediction logging.</li>
+            <li>Airflow monitors a <span class="metric">14-day rolling RMSE</span> and triggers retraining.</li>
+            <li>Chronological validation with no data leakage.</li>
+            <li>Promotion audit — a new model ships only if it beats the one in production.</li>
+          </ul>
           <div class="tags">
-            <span class="tag">XGBoost</span><span class="tag">Airflow</span><span class="tag">MLflow</span>
-            <span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+            <span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">MLflow</span>
+            <span class="tag">Airflow</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/SaadTadja/smart-supply-forecaster" target="_blank" rel="noopener noreferrer">Source →</a>
@@ -408,13 +471,17 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
             <span class="proj-kind">Decision support</span>
           </div>
           <p>
-            Enterprise decision-support platform built in four analytical layers: descriptive KPIs, advanced
-            segmentation and trend analysis, strategic frameworks, then AI modules for sales prediction,
-            anomaly detection, recommendations, and a strategy assistant.
+            Decision-support platform that turns raw business data into strategy, layer by layer.
           </p>
+          <ul>
+            <li>Revenue forecasting with Random Forest — <span class="metric">R² ≈ 0.92</span> on the test set.</li>
+            <li>Anomaly detection with Isolation Forest.</li>
+            <li>Recommendation engine, RFM segmentation and KPI tracking.</li>
+            <li>Auto-generated strategic frameworks.</li>
+          </ul>
           <div class="tags">
-            <span class="tag">Streamlit</span><span class="tag">XGBoost</span><span class="tag">statsmodels</span>
-            <span class="tag">SQLAlchemy</span><span class="tag">Plotly</span>
+            <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">Streamlit</span>
+            <span class="tag">Plotly</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/SaadTadja/athena-core" target="_blank" rel="noopener noreferrer">Source →</a>
@@ -423,34 +490,20 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 
         <div class="proj">
           <div class="proj-top">
-            <h3>Recruitment Operations Platform</h3>
-            <span class="proj-kind">Client work · private</span>
-          </div>
-          <p>
-            End-to-end automation of a hiring workflow: candidate and offer data model, a REST API driving
-            no-code automations for interview invitations and follow-ups, inbound email parsing over IMAP,
-            Claude-assisted CV screening and document generation, templated PDF reports, and live dashboard
-            updates over WebSockets. Hardened authentication, 38 of 38 end-to-end tests passing.
-          </p>
-          <div class="tags">
-            <span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Socket.IO</span>
-            <span class="tag">Next.js</span><span class="tag">FastAPI</span><span class="tag">Claude API</span>
-            <span class="tag">n8n</span><span class="tag tag-muted">Code on request</span>
-          </div>
-        </div>
-
-        <div class="proj">
-          <div class="proj-top">
             <h3>AI Compass</h3>
-            <span class="proj-kind">Web platform</span>
+            <span class="proj-kind">Full-stack</span>
           </div>
           <p>
-            Platform for evaluating and comparing AI models: interactive benchmark comparisons across MMLU,
-            HumanEval and GSM8K, live data visualizations, and production-grade cost analysis.
+            Deployed web app comparing large language models on published benchmarks and pricing —
+            MMLU, HumanEval and GSM8K alongside production cost analysis.
           </p>
+          <ul>
+            <li>Relational data model with a REST API supporting filtering and sorting.</li>
+            <li>Responsive React dashboard.</li>
+          </ul>
           <div class="tags">
             <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Prisma</span>
-            <span class="tag">Tailwind</span>
+            <span class="tag">PostgreSQL</span><span class="tag">Tailwind</span>
           </div>
           <div class="proj-links">
             <a href="https://ai-dashboard-roan-one.vercel.app" target="_blank" rel="noopener noreferrer">Live demo →</a>
@@ -464,7 +517,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
             <span class="proj-kind">Supply chain</span>
           </div>
           <p>
-            MLOps intelligence platform for continuous supply-chain operations — automated demand forecasting
+            Intelligence platform for continuous supply-chain operations — automated demand forecasting
             paired with interactive inventory optimization under service-level constraints.
           </p>
           <div class="tags">
@@ -487,32 +540,45 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
       <div class="xp">
 
         <div class="xp-item">
-          <img class="xp-logo" src="1714830032061.jpeg" alt="" width="44" height="44" loading="lazy">
+          <div class="xp-mark" aria-hidden="true">EHC</div>
           <div>
-            <h3 class="xp-role">Lead of the Prospecting Unit</h3>
-            <p class="xp-meta">ESSOR Junior Entreprise · Jun 2025 – Present</p>
-            <p>Previously Junior Consultant, October 2024 to June 2025.</p>
+            <h3 class="xp-role">Software Development Intern</h3>
+            <p class="xp-meta">EHC Groupe · Casablanca · Jul 2026 – Present</p>
+            <p class="xp-sub">End-to-end AI recruitment agent platform</p>
+            <ul>
+              <li>Building a platform that automates a full business process: content generation, CV parsing,
+                  candidate scoring, interview scheduling and onboarding follow-up — an LLM agent driven by
+                  prompts and the Claude API, orchestrated with n8n.</li>
+              <li>Engineering decisions: a dual-engine design that falls back to a deterministic rules engine
+                  when the LLM API is unavailable, plus deterministic, explainable scoring. Degraded mode,
+                  full event log, 38/38 end-to-end tests passing.</li>
+              <li>Stack: Next.js/React, Node.js/Express with Socket.IO for real-time, Python/FastAPI,
+                  MongoDB, Docker Compose.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="xp-item">
+          <div class="xp-mark" aria-hidden="true">EHC</div>
+          <div>
+            <h3 class="xp-role">AI Automation Consultant</h3>
+            <p class="xp-meta">EHC Groupe · May 2026 – Jun 2026</p>
+            <ul>
+              <li>Mapped the end-to-end business process and wrote the functional specification — data model,
+                  workflows and business rules — that became the platform blueprint.</li>
+            </ul>
           </div>
         </div>
 
         <div class="xp-item">
           <img class="xp-logo" src="ocp_logo.jpeg" alt="" width="44" height="44" loading="lazy">
           <div>
-            <h3 class="xp-role">Assistant Process Engineer</h3>
+            <h3 class="xp-role">Assistant Process Engineer Intern — Data Science</h3>
             <p class="xp-meta">OCP Group · Jul 2025 – Aug 2025</p>
             <ul>
-              <li>Analysed industrial operations to identify data-driven optimization opportunities.</li>
-              <li>Contributed to a rock classification project, exploring machine learning approaches.</li>
+              <li>Collected and preprocessed industrial data.</li>
+              <li>Developed and evaluated machine-learning classification models to support process optimization.</li>
             </ul>
-          </div>
-        </div>
-
-        <div class="xp-item">
-          <img class="xp-logo" src="mckinsey_logo.jpeg" alt="" width="44" height="44" loading="lazy">
-          <div>
-            <h3 class="xp-role">Forward Program Participant</h3>
-            <p class="xp-meta">McKinsey &amp; Company · Apr 2025 – Jun 2025</p>
-            <p>Selected for a global learning initiative on leadership, structured problem-solving and communication.</p>
           </div>
         </div>
 
@@ -530,47 +596,41 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
           <h3 class="sub-title">Education</h3>
           <ul class="timeline">
             <li>
-              <strong>ESITH Casablanca</strong>
-              <span>Industrial Engineering — Business &amp; Data Management major</span>
-              <time>2024 – 2027</time>
+              <strong>State Engineering Degree — Industrial Engineering</strong>
+              <span>Business &amp; Data Management major · ESITH, Casablanca</span>
+              <time>2024 – 2027 (expected)</time>
+              <p class="coursework">
+                Machine learning, deep learning, data science &amp; AI, generative AI, Big Data,
+                Python (3 levels), databases, cloud computing &amp; cybersecurity, architecture &amp; ERP.
+              </p>
             </li>
             <li>
-              <strong>CPGE — Acharif Al Idrissi Center, Taza</strong>
-              <span>Mathematics, Physics &amp; Engineering Sciences (MPSI–MP)</span>
+              <strong>CPGE — Preparatory Classes for Engineering Schools</strong>
+              <span>Mathematics &amp; Physics (MPSI / MP) · Centre Acharif Al Idrissi, Taza</span>
               <time>2022 – 2024</time>
-            </li>
-            <li>
-              <strong>Lycée Moulay Ismail</strong>
-              <span>Baccalauréat, Mathematical Sciences B</span>
-              <time>2021 – 2022</time>
             </li>
           </ul>
         </div>
         <div>
-          <h3 class="sub-title">Skills</h3>
+          <h3 class="sub-title">Skills &amp; tools</h3>
+          <div class="skill-row">
+            <h4>AI &amp; machine learning</h4>
+            <p>Python, scikit-learn, XGBoost, PyTorch, model evaluation &amp; monitoring, drift detection,
+               MLflow, Airflow, LLM agents, generative AI (Claude API), prompt engineering, RAG</p>
+          </div>
+          <div class="skill-row">
+            <h4>Development</h4>
+            <p>FastAPI, Node.js/Express, Socket.IO, Next.js/React, TypeScript, REST APIs, MongoDB,
+               PostgreSQL, SQL, Docker, Git</p>
+          </div>
+          <div class="skill-row">
+            <h4>Data</h4>
+            <p>Data collection, preprocessing &amp; analysis, feature engineering, pandas, NumPy,
+               Power BI, dashboards &amp; KPIs</p>
+          </div>
           <div class="skill-row">
             <h4>Languages</h4>
-            <p>Python, TypeScript, SQL, R, LaTeX</p>
-          </div>
-          <div class="skill-row">
-            <h4>Machine learning &amp; data</h4>
-            <p>scikit-learn, XGBoost, pandas, NumPy, SciPy, statsmodels, Plotly</p>
-          </div>
-          <div class="skill-row">
-            <h4>MLOps &amp; backend</h4>
-            <p>Docker, Airflow, MLflow, FastAPI, Express, PostgreSQL, MongoDB, Streamlit</p>
-          </div>
-          <div class="skill-row">
-            <h4>GenAI &amp; automation</h4>
-            <p>Claude API, LangChain, Ollama, n8n, Gemini, KNIME</p>
-          </div>
-          <div class="skill-row">
-            <h4>Web &amp; tools</h4>
-            <p>Next.js, React, Prisma, Tailwind, Git, Linux, Power BI</p>
-          </div>
-          <div class="skill-row">
-            <h4>Spoken languages</h4>
-            <p>French, English, Arabic</p>
+            <p>Arabic (native) · French (fluent) · English (fluent) · Spanish (basic)</p>
           </div>
           <div style="margin-top:1.5rem">
             <a class="btn btn-primary" href="Saad_Tadjaoui_cv.pdf" download>
@@ -583,10 +643,40 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
     </div>
   </section>
 
+  <!-- ============ credentials ============ -->
+  <section id="credentials">
+    <div class="wrap">
+      <p class="sec-label">06 — Credentials</p>
+      <h2 class="sec-title">Certifications &amp; leadership</h2>
+      <ul class="cert-list">
+        <li>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div>Workflow Automation with n8n<em>DataCamp</em></div>
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div>McKinsey Forward Program<em>McKinsey &amp; Company · 2025</em></div>
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div>Project Initiation<em>Google</em></div>
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div>UX Design<em>Google</em></div>
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/></svg>
+          <div>Lead, Prospecting Unit — ESSOR Junior Entreprise<em>Jun 2025 – Present</em></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ============ writing ============ -->
   <section id="writing">
     <div class="wrap">
-      <p class="sec-label">06 — Writing</p>
+      <p class="sec-label">07 — Writing</p>
       <h2 class="sec-title">Technical guides</h2>
       <div class="grid cols-2">
         <div class="proj">
@@ -615,15 +705,20 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   <!-- ============ contact ============ -->
   <section id="contact">
     <div class="wrap">
-      <p class="sec-label">07 — Contact</p>
+      <p class="sec-label">08 — Contact</p>
       <h2 class="sec-title">Get in touch</h2>
       <p class="lead" style="margin-bottom:1.5rem">
-        Open to internships and collaboration in machine learning engineering, MLOps and operations automation.
+        Looking for an end-of-studies internship (PFE) from February 2027 — flexible duration, open to
+        opportunities in Morocco and internationally.
       </p>
       <div class="contact-list">
         <a class="contact-item" href="mailto:saadodin3@gmail.com">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
           <span>saadodin3@gmail.com</span>
+        </a>
+        <a class="contact-item" href="tel:+212600949593">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8.1 9.5a16 16 0 006 6l1.1-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>
+          <span>+212 600 949 593</span>
         </a>
         <a class="contact-item" href="https://www.linkedin.com/in/saad-tadjaoui-12a0a5305/" target="_blank" rel="noopener noreferrer">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.42v1.56h.04c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zm1.78 13.02H3.56V9h3.56v11.45z"/></svg>
@@ -672,7 +767,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 
   var nav = document.getElementById('nav');
   var navBtn = document.getElementById('nav-toggle');
-  var mobile = window.matchMedia('(max-width: 760px)');
+  var mobile = window.matchMedia('(max-width: 860px)');
 
   function sync() {
     if (mobile.matches) {
