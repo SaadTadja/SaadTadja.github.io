@@ -73,6 +73,11 @@
   --line: #262b33;
   --accent: #2dd4bf;
   --accent-soft: rgba(45, 212, 191, .12);
+  /* translucent panel + background field */
+  --panel: rgba(255, 255, 255, .035);
+  --grid: rgba(255, 255, 255, .030);
+  --glow-a: rgba(45, 212, 191, .10);
+  --glow-b: rgba(122, 162, 247, .07);
 }
 [data-theme="light"] {
   --bg: #ffffff;
@@ -84,13 +89,37 @@
   --line: #e2e5ea;
   --accent: #0d9488;
   --accent-soft: rgba(13, 148, 136, .10);
+  --panel: rgba(15, 17, 21, .022);
+  --grid: rgba(15, 17, 21, .045);
+  --glow-a: rgba(13, 148, 136, .07);
+  --glow-b: rgba(37, 99, 235, .05);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
+
+/* Fixed background field: two soft accent washes over a fine measuring grid,
+   masked so it fades out down the page. Pure CSS, no image requests. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(70rem 45rem at 12% -8%, var(--glow-a), transparent 62%),
+    radial-gradient(55rem 40rem at 105% 12%, var(--glow-b), transparent 60%),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 88%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 88%);
+}
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
 body {
   margin: 0;
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -241,7 +270,7 @@ section { padding: clamp(2.75rem, 7vw, 4.5rem) 0; border-top: 1px solid var(--li
 .cols-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
 
 .card {
-  background: var(--bg-raised); border: 1px solid var(--line);
+  background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 1.25rem;
 }
 .card h3 { margin: 0 0 .45rem; font-size: 1rem; letter-spacing: -.01em; }
@@ -251,7 +280,7 @@ section { padding: clamp(2.75rem, 7vw, 4.5rem) 0; border-top: 1px solid var(--li
 /* ---------- projects ---------- */
 .proj {
   display: block; text-decoration: none;
-  background: var(--bg-raised); border: 1px solid var(--line);
+  background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 1.35rem;
   transition: border-color .18s, transform .18s;
 }
@@ -278,7 +307,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 .xp { display: grid; gap: .85rem; }
 .xp-item {
   display: grid; grid-template-columns: 44px 1fr; gap: 1rem;
-  background: var(--bg-raised); border: 1px solid var(--line);
+  background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 1.15rem;
 }
 .xp-logo { width: 44px; height: 44px; border-radius: 7px; object-fit: contain; background: #fff; padding: 4px; }
@@ -314,7 +343,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 .cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
 .cert-list li {
   display: flex; align-items: flex-start; gap: .6rem;
-  background: var(--bg-raised); border: 1px solid var(--line);
+  background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: .8rem 1rem; font-size: .89rem;
 }
 .cert-list svg { flex: none; color: var(--accent); margin-top: 3px; }
@@ -364,7 +393,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 .contact-list { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
 .contact-item {
   display: flex; align-items: center; gap: .7rem;
-  padding: .9rem 1rem; background: var(--bg-raised);
+  padding: .9rem 1rem; background: var(--panel);
   border: 1px solid var(--line); border-radius: var(--radius);
   text-decoration: none; font-size: .9rem;
   transition: border-color .15s;
