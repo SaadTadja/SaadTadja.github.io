@@ -322,20 +322,33 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 /* ---------- epigraphs ---------- */
 .epigraph {
-  margin: 0;
-  padding: clamp(2.25rem, 5.5vw, 3.5rem) 0;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: clamp(2.25rem, 5.5vw, 3.5rem) 1.5rem;
   border-top: 1px solid var(--line);
   text-align: center;
 }
 .epigraph + section { border-top: 0; }
 .epigraph blockquote {
-  margin: 0 auto;
-  max-width: 44ch;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
-  line-height: 1.35;
   font-style: italic;
   color: var(--text-dim);
+  line-height: 1.3;
+  /* Single line. The longest quote measures 42.23em in this face, so the
+     viewport-driven size is capped where 42.23em still fits the container. */
+  white-space: nowrap;
+  font-size: clamp(.85rem, 2.15vw, 1.75rem);
+}
+/* Below this width a 119-character line cannot stay legible, so let it wrap. */
+@media (max-width: 900px) {
+  .epigraph blockquote {
+    white-space: normal;
+    max-width: 42ch;
+    margin: 0 auto;
+    font-size: clamp(1.1rem, 3.3vw, 1.4rem);
+  }
 }
 .epigraph figcaption {
   margin-top: 1rem;
@@ -452,7 +465,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   </section>
 
   <!-- ============ epigraph ============ -->
-  <figure class="epigraph wrap">
+  <figure class="epigraph">
     <blockquote>Civilization advances by extending the number of important operations which we can perform without thinking about them.</blockquote>
     <figcaption>Alfred North Whitehead · <cite>An Introduction to Mathematics</cite>, 1911</figcaption>
   </figure>
@@ -488,7 +501,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   </section>
 
   <!-- ============ epigraph ============ -->
-  <figure class="epigraph wrap">
+  <figure class="epigraph">
     <blockquote>Knowing is not enough; we must apply. Willing is not enough; we must do.</blockquote>
     <figcaption>Johann Wolfgang von Goethe</figcaption>
   </figure>
@@ -732,7 +745,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   </section>
 
   <!-- ============ epigraph ============ -->
-  <figure class="epigraph wrap">
+  <figure class="epigraph">
     <blockquote>Perfection is attained not when there is nothing more to add, but when there is nothing more to take away.</blockquote>
     <figcaption>Antoine de Saint-Exupéry · <cite>Wind, Sand and Stars</cite>, 1939</figcaption>
   </figure>
