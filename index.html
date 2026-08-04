@@ -388,6 +388,16 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
   color: var(--text-faint);
 }
 .epigraph figcaption cite { font-style: normal; }
+.epigraph figcaption a { color: var(--accent); text-decoration: none; }
+.epigraph figcaption a:hover { text-decoration: underline; }
+/* Longer than the other epigraphs' calibrated 119-char line: wrap instead of
+   assuming it fits on one line at every viewport width. */
+.epigraph-long blockquote {
+  white-space: normal;
+  max-width: 46ch;
+  margin: 0 auto;
+  font-size: clamp(1.05rem, 2.6vw, 1.55rem);
+}
 
 /* ---------- contact ---------- */
 .contact-list { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
@@ -429,6 +439,7 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
       <a href="#experience">Experience</a>
       <a href="#resume">Résumé</a>
       <a href="#credentials">Credentials</a>
+      <a href="vibe-coding-to-engineering.html">Writing</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -466,6 +477,12 @@ a.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
       <a class="btn" href="Saad_Tadjaoui_cv.pdf" download>Download résumé</a>
     </div>
   </div>
+
+  <!-- ============ epigraph : own writing ============ -->
+  <figure class="epigraph epigraph-long">
+    <blockquote>The best vibe coder isn't the one who writes every line manually, but the one who knows the right questions to ask—and the right answers to verify.</blockquote>
+    <figcaption>Saad Tadjaoui · <a href="vibe-coding-to-engineering.html">From Vibe Coding to Engineering →</a></figcaption>
+  </figure>
 
   <!-- ============ about ============ -->
   <section id="about">

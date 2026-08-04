@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Vibe Coding to Engineering — Saad Tadjaoui</title>
+<meta name="description" content="How I built two end-to-end AI agent platforms as an intern, almost entirely through AI-assisted development — and the methodology that turned fast prototyping into software I could defend and ship.">
+<meta name="author" content="Saad Tadjaoui">
+<link rel="canonical" href="https://saadtadja.github.io/vibe-coding-to-engineering.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://saadtadja.github.io/vibe-coding-to-engineering.html">
+<meta property="og:title" content="From Vibe Coding to Engineering">
+<meta property="og:description" content="The best vibe coder isn't the one who writes every line manually, but the one who knows the right questions to ask—and the right answers to verify.">
+<meta property="og:image" content="https://saadtadja.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="From Vibe Coding to Engineering">
+<meta name="twitter:description" content="The best vibe coder isn't the one who writes every line manually, but the one who knows the right questions to ask—and the right answers to verify.">
+<meta name="twitter:image" content="https://saadtadja.github.io/og-image.png">
+<meta name="theme-color" content="#0f1115">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/instrument-serif-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/jetbrains-mono-latin.woff2" crossorigin>
+
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    var system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', saved || system);
+  } catch (e) {}
+})();
+</script>
+
+<style>
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/instrument-serif-latin.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono-latin.woff2") format("woff2");
+  font-weight: 100 800; font-style: normal; font-display: swap;
+}
+:root {
+  --accent: #0d9488; --accent-soft: rgba(13, 148, 136, .12); --radius: 10px;
+  --maxw: 68rem; --maxw-article: 44rem;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+[data-theme="dark"] {
+  --bg: #0f1115; --bg-raised: #16191f; --bg-inset: #1b1f26;
+  --text: #e6e8ec; --text-dim: #9ba1ac; --text-faint: #6b7280; --line: #262b33;
+  --accent: #2dd4bf; --accent-soft: rgba(45, 212, 191, .12);
+  --panel: rgba(255, 255, 255, .035); --grid: rgba(255, 255, 255, .030);
+  --glow-a: rgba(45, 212, 191, .10); --glow-b: rgba(122, 162, 247, .07);
+}
+[data-theme="light"] {
+  --bg: #ffffff; --bg-raised: #f7f8fa; --bg-inset: #f0f2f5;
+  --text: #14171c; --text-dim: #545b66; --text-faint: #7b828d; --line: #e2e5ea;
+  --accent: #0d9488; --accent-soft: rgba(13, 148, 136, .10);
+  --panel: rgba(15, 17, 21, .022); --grid: rgba(15, 17, 21, .045);
+  --glow-a: rgba(13, 148, 136, .07); --glow-b: rgba(37, 99, 235, .05);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(70rem 45rem at 12% -8%, var(--glow-a), transparent 62%),
+    radial-gradient(55rem 40rem at 105% 12%, var(--glow-b), transparent 60%),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 22%, transparent 62%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 22%, transparent 62%);
+}
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+body { margin: 0; background: transparent; color: var(--text); font-family: var(--font-sans);
+  font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+.wrap-article { width: 100%; max-width: var(--maxw-article); margin: 0 auto; padding: 0 1.5rem; }
+
+.site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 60px; }
+.wordmark { font-family: var(--font-mono); font-size: .95rem; font-weight: 600; letter-spacing: -.01em; text-decoration: none; white-space: nowrap; }
+.wordmark .dot { color: var(--accent); }
+.back-link { font-family: var(--font-mono); font-size: .82rem; color: var(--text-dim); text-decoration: none; }
+.back-link:hover { color: var(--accent); }
+
+.art-hero { padding: clamp(3rem, 8vw, 5rem) 0 clamp(1.5rem, 4vw, 2.5rem); }
+.eyebrow { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin: 0 0 1.1rem; }
+.art-hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.08;
+  letter-spacing: -.015em; font-weight: 400; margin: 0 0 .7rem; }
+.art-sub { font-family: var(--font-display); font-style: italic; font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  color: var(--text-dim); margin: 0 0 1.5rem; }
+.byline { font-family: var(--font-mono); font-size: .82rem; color: var(--text-faint); }
+.byline .accent { color: var(--accent); }
+
+.epigraph { width: 100%; max-width: 80rem; margin: 0 auto; padding: clamp(2.25rem, 5.5vw, 3.25rem) 1.5rem;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+.epigraph blockquote { margin: 0; font-family: var(--font-display); font-style: italic; color: var(--text);
+  line-height: 1.35; max-width: 46ch; margin: 0 auto; font-size: clamp(1.2rem, 3.4vw, 1.85rem); }
+.epigraph figcaption { margin-top: 1rem; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--text-faint); }
+
+article.prose { padding: clamp(2rem, 6vw, 3.25rem) 0; }
+.prose h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 3.2vw, 1.9rem);
+  letter-spacing: -.01em; margin: 2.4rem 0 1rem; color: var(--accent); }
+.prose h2:first-child { margin-top: 0; }
+.prose h3 { font-size: 1.05rem; font-weight: 600; margin: 1.6rem 0 .6rem; letter-spacing: -.005em; }
+.prose p { color: var(--text-dim); margin: 0 0 1rem; }
+.prose p.lede { color: var(--text); font-size: 1.05rem; }
+.prose ul { margin: 0 0 1.2rem; padding-left: 1.2rem; }
+.prose li { color: var(--text-dim); margin-bottom: .5rem; }
+.prose li strong { color: var(--text); }
+.prose strong { color: var(--text); }
+.prose code { font-family: var(--font-mono); font-size: .88em; background: var(--bg-inset);
+  padding: .1em .35em; border-radius: 4px; }
+
+.callout { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: var(--radius);
+  padding: 1.1rem 1.3rem; margin: 1.6rem 0; }
+.callout p { color: var(--text); margin: 0; font-style: italic; }
+.callout .sig { display: block; margin-top: .6rem; font-style: normal; font-family: var(--font-mono);
+  font-size: .78rem; color: var(--text-faint); text-align: right; }
+.callout.loop p { font-style: normal; }
+.callout.loop strong { display: block; margin-bottom: .5rem; font-style: normal; }
+
+.footer-cta { border-top: 1px solid var(--line); padding: clamp(2rem, 5vw, 3rem) 0; text-align: center; }
+.footer-cta p { color: var(--text-dim); margin: 0 0 1rem; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .62rem 1.15rem; border-radius: 8px;
+  font-size: .9rem; font-weight: 600; text-decoration: none; border: 1px solid var(--line); color: var(--text);
+  transition: border-color .15s, background .15s, color .15s; }
+.btn:hover { border-color: var(--text-faint); background: var(--bg-inset); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #04211d; }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); filter: brightness(1.08); color: #04211d; }
+
+.site-footer { border-top: 1px solid var(--line); padding: 1.75rem 0; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-copy { font-size: .82rem; color: var(--text-faint); }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="wordmark" href="index.html">s<span class="dot">.</span>tadjaoui</a>
+    <a class="back-link" href="index.html">← Back to portfolio</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap-article art-hero">
+    <p class="eyebrow">Technical Writing</p>
+    <h1>From “Vibe Coding” to Engineering</h1>
+    <p class="art-sub">How I built two end-to-end AI agent platforms as an intern.</p>
+    <p class="byline">Saad Tadjaoui <span class="accent">·</span> Software Development Intern <span class="accent">·</span> Engineering Student @ ESITH Casablanca</p>
+  </div>
+
+  <figure class="epigraph">
+    <blockquote>“The best vibe coder isn't the one who writes every line manually, but the one who knows the right questions to ask—and the right answers to verify.”</blockquote>
+    <figcaption>Saad Tadjaoui</figcaption>
+  </figure>
+
+  <div class="wrap-article">
+    <article class="prose">
+
+      <p class="lede">
+        Over the course of a corporate software engineering internship, I designed and built two
+        successive AI-agent platforms almost entirely through AI-assisted development — what
+        people now call “vibe coding.” The first was a production-grade recruitment automation
+        system: a 12-step AI agent pipeline spanning five services, with 38/38 end-to-end tests
+        passing. The second, built right after, was a client invoicing system that replaced a
+        manual Canva-and-Excel process with a single source of truth for every calculation,
+        tracing each business rule to a real invoice or spreadsheet row on file.
+      </p>
+      <p>
+        But the real lesson wasn't that AI can write code. It was that <strong>vibe coding
+        without a methodology produces fragile software</strong>, and that a disciplined process
+        is what turns fast prototyping into something you can actually defend and ship. This
+        article shares the methodology I developed, and shows how it played out identically on
+        two very different systems.
+      </p>
+
+      <h2>The Context</h2>
+
+      <h3>Platform One — Recruitment Automation</h3>
+      <p>
+        At the HR consultancy where I interned, I built an end-to-end automated recruitment
+        pipeline: an AI agent that takes a hiring need and drives it all the way from
+        job-description generation, through sourcing, CV parsing, candidate scoring, interview
+        scheduling, and AI-generated interview grids, to the final offer, invoicing, and
+        onboarding follow-up.
+      </p>
+      <p>The stack was deliberately layered:</p>
+      <ul>
+        <li><strong>Frontend</strong> — Next.js / React (recruiter portal, real-time tracking board)</li>
+        <li><strong>Backend</strong> — Node.js / Express + Socket.IO (APIs, business rules, real-time events)</li>
+        <li><strong>Orchestration</strong> — n8n in Docker (multi-step workflows)</li>
+        <li><strong>AI service</strong> — Python / FastAPI (parsing, scoring, synthesis)</li>
+        <li><strong>Data</strong> — MongoDB (8 collections), the whole thing on Docker Compose</li>
+      </ul>
+
+      <h3>Platform Two — Client Invoicing System</h3>
+      <p>
+        The second platform automates the company's client invoicing. Before it, every invoice
+        was composed in Canva by duplicating the previous one, exported to PDF, then re-typed by
+        hand into an Excel tracking sheet — two manual entries, no link between the document and
+        the record, and errors that a formal audit later confirmed (wrong VAT, duplicate invoice
+        numbers, inconsistent formats). The platform inverts that: one entry produces both the PDF
+        invoice and the full sales register. Every rule in the system — 34 numbered rules in
+        total — is traced to a real invoice or spreadsheet row in a written specification; nothing
+        is implemented that isn't grounded in an observed document.
+      </p>
+      <ul>
+        <li><strong>Application</strong> — Next.js / React, server actions only, no separate backend service</li>
+        <li><strong>Data</strong> — SQLite via Prisma, chosen deliberately for a single-writer, low-volume system, with a documented migration path to PostgreSQL if volume grows</li>
+        <li><strong>Documents</strong> — a headless Chromium renderer turning an HTML template into the archived PDF; a spreadsheet library generating the sales register and exports</li>
+        <li><strong>Money</strong> — every amount stored as an integer number of cents, every quantity as an integer number of thousandths of a unit — never a floating-point number</li>
+      </ul>
+      <p>
+        I wrote most of both platforms with AI coding assistants. And that is exactly why the
+        <em>how</em> mattered more than the <em>what</em>, on both of them.
+      </p>
+
+      <h2>The Uncomfortable Truth About Vibe Coding</h2>
+      <p>
+        Vibe coding is intoxicating. You describe what you want, code appears, it mostly runs.
+        But “mostly runs” is a trap. Left unchecked, AI-generated code accumulates hidden bugs,
+        silent inconsistencies, security gaps, and architectural drift — faster than you can
+        read it.
+      </p>
+      <p>
+        The turning point for me was realizing that the AI is not an oracle. It is a very fast,
+        very confident junior developer whose output must <strong>always</strong> be verified.
+        Once I internalized that, I stopped “vibing” and started engineering. Here is the
+        methodology that came out of it.
+      </p>
+
+      <h2>A Methodology for Disciplined Vibe Coding</h2>
+
+      <h3>1. Plan before you prompt</h3>
+      <p>
+        Write a short spec first: inputs, outputs, edge cases. Ask the AI to produce a plan and
+        confirm it <em>before</em> generating code. Never let 300 lines grow from a vague one-liner.
+      </p>
+
+      <h3>2. Evaluate the stack — advantages and disadvantages</h3>
+      <p>
+        Before committing to any framework, weigh it explicitly: what does it do well? Where does
+        it struggle? How mature is the ecosystem? Popular does not mean right. Choose on
+        trade-offs, not on hype.
+      </p>
+
+      <h3>3. Know the limitations</h3>
+      <p>
+        Every tool — and the AI itself — has hard limits: rate limits, size caps, things a
+        framework simply cannot do. Surface them early by asking “what can't this do?” so you
+        don't build halfway before hitting a wall.
+      </p>
+
+      <h3>4. Map the risks</h3>
+      <p>
+        Identify what could go wrong before it does: security holes, secrets in code, weak auth,
+        data loss, scaling failures, vendor lock-in, fragile dependencies. The AI won't volunteer
+        these — ask it to list them explicitly.
+      </p>
+
+      <h3>5. Compare approaches</h3>
+      <p>
+        For any non-trivial feature, ask for two or three solutions with trade-offs (simple vs.
+        scalable, fast to build vs. maintainable). Decide deliberately instead of accepting the
+        first answer.
+      </p>
+
+      <h3>6. Work in small, testable increments</h3>
+      <p>
+        One feature at a time. Test it, commit it, move on. Small diffs are reviewable; large AI
+        dumps are where bugs hide.
+      </p>
+
+      <h3>7. Use version control religiously</h3>
+      <p>
+        Commit after every working step. Branch for experiments. When the AI breaks something,
+        roll back instead of debugging a mess.
+      </p>
+
+      <h3>8. Read the code — don't just accept it</h3>
+      <p>
+        Skim every block. If you don't understand a line, ask for an explanation. Accepting code
+        you can't read is the number-one source of untraceable bugs.
+      </p>
+
+      <h3>9. Keep a tight error feedback loop</h3>
+      <p>
+        Paste <strong>full</strong> error messages and stack traces back to the AI — not
+        summaries — along with the actual failing input and the expected output.
+      </p>
+
+      <h3>10. Automate the boring checks</h3>
+      <p>
+        Linting, formatting, and tests alongside features catch whole classes of issues before
+        you ever run the code.
+      </p>
+
+      <h3>11. Graduate to production, deliberately</h3>
+      <p>
+        A platform that passes every test on a laptop is not automatically a platform you can
+        hand to real users. Treat “it works” and “it's production-ready” as two different bars,
+        and cross the second one on purpose, not by accident: real authentication in front of
+        every endpoint, secrets pulled from an environment or a vault rather than hard-coded,
+        backups you have actually restored once rather than just taken, monitoring and alerting
+        so a failure is noticed before a client reports it, a rollback path for the day a deploy
+        goes wrong, and a documented handover so someone other than you can operate the system.
+        Both platforms were deliberately scoped as prototypes first — their own internal
+        documentation says so explicitly — and that same discipline is what now makes the move to
+        production a planned step rather than a scramble: the gaps were named on purpose, so they
+        can be closed on purpose, one at a time, instead of being discovered by an incident.
+      </p>
+
+      <h2>Where Discipline Paid Off</h2>
+
+      <h3>Recruitment Platform</h3>
+      <p>Two design decisions show what the methodology bought me:</p>
+      <ul>
+        <li>
+          <strong>Deterministic scoring, never LLM-decided.</strong> Candidate scoring uses fixed,
+          explainable weights (required skills, experience, location, and so on) with clear
+          thresholds. In HR, algorithmic discrimination is a real legal risk — so the scoring is
+          auditable criterion by criterion, not a black box. That was a <em>risk-mapping</em>
+          decision, not a coding one.
+        </li>
+        <li>
+          <strong>A dual-engine, degraded-mode design.</strong> The system uses a real LLM when
+          available and falls back to a deterministic rules engine otherwise, so it runs fully
+          offline. If the orchestrator is unreachable, an internal fallback takes over. That came
+          straight from asking “what could break here?”
+        </li>
+      </ul>
+      <p>
+        Full traceability (every status change is journaled), anti-double-booking calendar locks,
+        and a retry mechanism that resumes without duplicating data rounded it out.
+      </p>
+
+      <h3>Invoicing Platform</h3>
+      <p>The same instincts showed up again, on a completely different domain:</p>
+      <ul>
+        <li>
+          <strong>Money as integers, never floats.</strong> A real invoice in the source data has
+          an HT amount of 72,615.60; computing its VAT in JavaScript as
+          <code>72615.60 * 0.20</code> silently returns <code>14523.120000000003</code>, not
+          <code>14523.12</code>. Knowing that limitation up front — not discovering it in
+          production — is why every amount in the system is stored as an integer number of cents.
+          A single calculation module is called by the screen, the PDF, and the register, so the
+          historical bug it replaces (wrong VAT, because amounts were typed by hand and never
+          computed) can't be reintroduced by a second copy of the formula drifting out of sync.
+        </li>
+        <li>
+          <strong>Uniqueness guaranteed by the database, not by application code.</strong> Invoice
+          numbers are assigned by an atomic counter (client code + year) inside a database
+          transaction, so two simultaneous emissions can never collide — duplicates become
+          impossible by construction, the same guarantee the calendar lock gives the recruitment
+          platform.
+        </li>
+        <li>
+          <strong>Documents sealed, not regenerated.</strong> Once an invoice is issued, its PDF is
+          rendered exactly once, archived, and fingerprinted (SHA-256); every later read serves
+          that archived file, never a fresh render. Correcting a mistake means issuing a
+          brand-new invoice and marking the old one superseded — never editing or deleting it.
+          That is an audit trail decision, made by mapping the risk (“what if a document already
+          in a client's hands silently changes?”) before writing a line of code.
+        </li>
+      </ul>
+      <p>
+        The same discipline surfaces different guarantees depending on the domain: explainable
+        scoring where the risk is algorithmic bias, immutable sealed documents where the risk is
+        fiscal non-compliance. Neither came from vibing; both came from mapping the risk
+        <em>before</em> writing the feature.
+      </p>
+
+      <div class="callout loop">
+        <p><strong>The core loop:</strong>
+        spec → evaluate stack → assess limits &amp; risks → compare approaches → small change →
+        review → test → commit → repeat → to production.</p>
+      </div>
+
+      <p class="lede">
+        Vibe coding gives you speed. Methodology gives you software you can defend. The two
+        together are a genuine superpower.
+      </p>
+
+    </article>
+  </div>
+
+  <div class="footer-cta">
+    <div class="wrap-article">
+      <p>Building AI agents, automating workflows, or thinking about AI-assisted development? I'd love to compare notes.</p>
+      <div style="display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="index.html#contact">Get in touch</a>
+        <a class="btn" href="https://www.linkedin.com/in/saad-tadjaoui-12a0a5305/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/SaadTadja" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span class="footer-copy">© 2026 Saad Tadjaoui</span>
+    <a class="back-link" href="index.html">← Back to portfolio</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var toggle = function () {};
+})();
+</script>
+</body>
+</html>
