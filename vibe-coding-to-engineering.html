@@ -142,6 +142,27 @@ article.prose { padding: clamp(2rem, 6vw, 3.25rem) 0; }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: #04211d; }
 .btn-primary:hover { background: var(--accent); border-color: var(--accent); filter: brightness(1.08); color: #04211d; }
 
+/* ---------- newsletter signup (Brevo) ---------- */
+.signup {
+  margin-top: 1.5rem; padding: 1.25rem; text-align: left;
+  background: var(--panel, var(--bg-raised)); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.signup-title { display: block; font-weight: 600; color: var(--text); margin: 0 0 .25rem; }
+.signup-note { font-size: .88rem; color: var(--text-dim); margin: 0 0 .9rem; }
+.signup-row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.signup-row input {
+  flex: 1 1 14rem; min-width: 0; padding: .62rem .85rem; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--text);
+  font: inherit; font-size: .92rem;
+}
+.signup-row input::placeholder { color: var(--text-faint); }
+.signup-row input:focus { outline: none; border-color: var(--accent); }
+.signup-row .btn { cursor: pointer; font-family: inherit; }
+.signup-row .btn:disabled { opacity: .6; cursor: default; }
+.signup-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.signup-status { min-height: 1.4em; font-size: .85rem; color: var(--accent); margin: .6rem 0 0; }
+.signup-status.is-error { color: #f87171; }
+
 .site-footer { border-top: 1px solid var(--line); padding: 1.75rem 0; }
 .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .footer-copy { font-size: .82rem; color: var(--text-faint); }
@@ -408,6 +429,19 @@ article.prose { padding: clamp(2rem, 6vw, 3.25rem) 0; }
         <a class="btn" href="https://www.linkedin.com/in/saad-tadjaoui-12a0a5305/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="btn" href="https://github.com/SaadTadja" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
+      <form class="signup" action="https://8cc91602.sibforms.com/serve/MUIFANe8OhAA8q42pjOfqCZnbfGV7RHdY_-UDfbd99pzz3wIjk53eUFOhPBBtsAbc-YiueuM44q9I0t7o68TCr5NFRHUko1amXK6LzbM51Qt1jn6f4-dh8Yw1IxwDeXfMVx2uCi6NbFphfq1ishwyoU_ION8pQeHlDGT3OeRMhgmIlYWzR6_Ny54H0S3d__WMgL7BVljVWpuwstyrQ==" method="POST" data-signup>
+        <label class="signup-title" for="signup-email">Enjoyed this? Get the next one by email</label>
+        <p class="signup-note">One email per new article on building AI systems. Unsubscribe anytime.</p>
+        <div class="signup-row">
+          <input type="email" id="signup-email" name="EMAIL" required autocomplete="email" placeholder="you@example.com">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </div>
+        <!-- Brevo anti-spam honeypot: must stay empty -->
+        <input class="signup-hp" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="locale" value="fr">
+        <input type="hidden" name="html_type" value="simple">
+        <p class="signup-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 
@@ -419,6 +453,46 @@ article.prose { padding: clamp(2rem, 6vw, 3.25rem) 0; }
     <a class="back-link" href="index.html">← Back to portfolio</a>
   </div>
 </footer>
+
+<script>
+/* Newsletter signup. Without JS the form posts to Brevo and shows its own page.
+   With JS it posts into a hidden iframe so the visitor stays here; Brevo's
+   response can't be read cross-origin, so success is assumed once it loads. */
+(function () {
+  var form = document.querySelector('[data-signup]');
+  if (!form) return;
+  var sink = document.createElement('iframe');
+  sink.name = 'brevo-sink';
+  sink.title = 'Newsletter signup';
+  sink.hidden = true;
+  document.body.appendChild(sink);
+  form.target = 'brevo-sink';
+
+  var button = form.querySelector('button');
+  var status = form.querySelector('.signup-status');
+  var pending = false, timer;
+
+  function done(ok) {
+    pending = false;
+    clearTimeout(timer);
+    button.disabled = false;
+    status.classList.toggle('is-error', !ok);
+    status.textContent = ok
+      ? 'Almost done \u2014 check your inbox and confirm your subscription.'
+      : 'Something went wrong. Please try again or email me directly.';
+    if (ok) form.reset();
+  }
+
+  form.addEventListener('submit', function () {
+    pending = true;
+    button.disabled = true;
+    status.classList.remove('is-error');
+    status.textContent = 'Subscribing\u2026';
+    timer = setTimeout(function () { if (pending) done(false); }, 15000);
+  });
+  sink.addEventListener('load', function () { if (pending) done(true); });
+})();
+</script>
 
 </body>
 </html>
